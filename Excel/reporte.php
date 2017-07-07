@@ -11,13 +11,13 @@ $fila = 3;
 $objPHPExcel = new PHPExcel();
 
 $objPHPExcel->getProperties()
-->setCreator("Innovación Educativa")
-->setLastModifiedBy("Innovación Educativa")
-->setTitle("Lista de eventos")
-->setSubject("Reporte")
-->setDescription("Reporte de eventos sala edifico 8")
-->setKeywords("excel reporte")
-->setCategory("Reportes");
+	->setCreator("Innovación Educativa")
+	->setLastModifiedBy("Innovación Educativa")
+	->setTitle("Lista de eventos")
+	->setSubject("Reporte")
+	->setDescription("Reporte de eventos sala edifico 8")
+	->setKeywords("excel reporte")
+	->setCategory("Reportes");
 
 // Estilo del reporte
 

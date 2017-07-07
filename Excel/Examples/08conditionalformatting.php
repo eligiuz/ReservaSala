@@ -160,8 +160,12 @@ echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $callStartTime = microtime(true);
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+echo "1";
+echo __FILE__;
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
+echo "2";
 $callEndTime = microtime(true);
+echo "3";
 $callTime = $callEndTime - $callStartTime;
 
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
