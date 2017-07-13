@@ -1,10 +1,16 @@
 <?php 
 require_once '../config.php';
 require_once '../funciones.php';
-if (isset($_POST['from'])){
-	$fechai = ($_POST['from']) * 1000;
+if (($_POST['from']) <> ""){
+	$fechai = strtotime($_POST['from']) * 1000;
 	$where = " where ".$fechai." <= start";
+	$sql = "SELECT * FROM eventos".$where;
+	
+
+} else {
+	$sql = "SELECT * FROM eventos";
 }
+$result = $conexion->query($sql);
 
 ?>
 
@@ -31,34 +37,62 @@ if (isset($_POST['from'])){
 </head>
 <body>
 	<div class="container">
-	<div class="row"><h1 style="text-align: center;">Esta es una prueba de Fechas</h1></div>
-	<form action="" method="post">
-	    <div class="row">
-	        <div class='input-group date' id='from'>
-	            <input type='text' id="from" name="from" class="form-control" readonly />
-	            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-	        </div>
-	        <div class='input-group date' id='to'>
-	            <input type='text' id="to" name="to" class="form-control" readonly />
-	            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-	        </div>
+		<div class="row">
+			<h1 style="text-align: center;">Esta es una prueba de Fechas</h1>
+		</div>
+		<div class="row">
+			<form action="prueba_fechas.php" method="post">
+				<div class="col-lg-6">
+			        <div class='input-group date' id='from'>
+			            <input type='text' id="from" name="from" class="form-control" readonly />
+			            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+			        </div>
+		        </div>
+
+		        <div class="col-lg-6">
+			        <div class='input-group date' id='to'>
+			            <input type='text' id="to" name="to" class="form-control" readonly />
+			            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+			        </div>
+		        </div>
 
 
 
-	       <script type="text/javascript">
-	        $(function () {
-	            $('#from').datetimepicker({
-	                format: "YYYY-MM-DD"
-	            });
-	            $('#to').datetimepicker({
-	                format: "YYYY-MM-DD"
-	            });
-	        });
-			</script>
-			<br>
-			<button type="submit" class="btn btn-primary">Buscar</button>
+		       <script type="text/javascript">
+		        $(function () {
+		            $('#from').datetimepicker({
+		                format: "YYYY-MM-DD"
+		            });
+		            $('#to').datetimepicker({
+		                format: "YYYY-MM-DD"
+		            });
+		        });
+				</script>
+				<br/>
+				<button type="submit" class="btn btn-primary">Buscar</button>
+		    </form>
 	    </div>
-    </form>
+
+		<div class="row">
+			<table class="table table-striped">
+				<thead>
+					<th>Fecha <?php echo $fechai; ?></th>
+					<th>Tipo de actividad</th>
+					<th>Nombre</th>
+				</thead>
+				<tbody>
+					<?php while ($row = $result->fetch_assoc()){ ?>
+					<tr>
+						<td><?php echo $row['inicio_normal']; ?></td>
+						<td><?php echo cambiarTipo($row['class']); ?></td>
+						<td><?php echo $row['title']; ?></td>
+					</tr>
+					<?php } ?>
+				</tbody>
+			</table>
+
+		</div>
+
 </div> <!-- container -->
 	
 
