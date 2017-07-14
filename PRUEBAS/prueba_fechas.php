@@ -1,15 +1,12 @@
 <?php 
 require_once '../config.php';
 require_once '../funciones.php';
-if (($_POST['from']) <> ""){
+$where = "";
+if (!empty($_POST['from'])){
 	$fechai = strtotime($_POST['from']) * 1000;
 	$where = " where ".$fechai." <= start";
-	$sql = "SELECT * FROM eventos".$where;
-	
-
-} else {
-	$sql = "SELECT * FROM eventos";
 }
+$sql = "SELECT * FROM eventos".$where;
 $result = $conexion->query($sql);
 
 ?>
@@ -69,7 +66,9 @@ $result = $conexion->query($sql);
 		        });
 				</script>
 				<br/>
+				<div class="col-lg-2">
 				<button type="submit" class="btn btn-primary">Buscar</button>
+				</div>
 		    </form>
 	    </div>
 
